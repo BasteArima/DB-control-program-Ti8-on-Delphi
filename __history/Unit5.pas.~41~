@@ -1,0 +1,141 @@
+unit Unit5;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TForm5 = class(TForm)
+    Label1: TLabel;
+    Edit1: TEdit;
+    Button1: TButton;
+    ComboBox1: TComboBox;
+    procedure Button1Click(Sender: TObject);
+    procedure WebBuyList();
+    procedure GoodsByName();
+    procedure MemberByName();
+    procedure MemberByTeam();
+    procedure EmployeeByNumber();
+    procedure EmployeeByGroup();
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form5: TForm5;
+
+implementation
+uses Unit6, Unit4;
+
+{$R *.dfm}
+
+procedure TForm5.Button1Click(Sender: TObject);
+begin
+if Edit1.Visible=true then
+begin
+if Edit1.Text='' then
+  begin
+  ShowMessage('Вы не ввели условие!');
+  end
+  else
+   begin
+   case Chr of
+     1 : EmployeeByGroup;
+     2 : EmployeeByNumber;
+     3 : MemberByTeam;
+     4 : MemberByName;
+     5 : WebBuyList;
+     6 : GoodsByName;
+   end;
+  end;
+end
+else
+begin
+case Chr of
+     1 : EmployeeByGroup;
+     2 : EmployeeByNumber;
+     3 : MemberByTeam;
+     4 : MemberByName;
+     5 : WebBuyList;
+     6 : GoodsByName;
+   end;
+end;
+end;
+
+procedure TForm5.WebBuyList();
+begin
+  Form6.Caption:='Список предзаказов';
+  Form6.ShowModal;
+  Form5.Close;
+end;
+
+procedure TForm5.GoodsByName();
+var a,b:string;
+begin
+if Form5.ComboBox1.Text='На сайте' then
+begin
+  b:='SELECT Goods.[№ Товара], Goods.[Название товара], Goods.[Стоимость товара],';
+  Form6.Caption:='Товары по названию';
+  Form6.ADOQuery1.SQL.Clear;
+  Form6.ADOQuery1.SQL.Add(b+' Goods.[Метод покупки], Goods.[Тип товара], Goods.Вес, Goods.[Название лавки] FROM Goods WHERE (((Goods.[Метод покупки])="На сайте"));');
+  Form6.ADOQuery2.SQL.Add('SELECT Sum([Goods].[Стоимость товара]) AS Сумма FROM Goods WHERE (((Goods.[Метод покупки])="На сайте"));');
+  Form6.ADOQuery1.Active:=true;
+  Form6.ADOQuery2.Active:=true;
+  Form6.DBText1.DataField:='Сумма';
+  Form6.ShowModal;
+end
+else
+begin
+  b:='SELECT Goods.[№ Товара], Goods.[Название товара], Goods.[Стоимость товара],';
+  Form6.Caption:='Товары по названию';
+  Form6.ADOQuery1.SQL.Clear;
+  Form6.ADOQuery1.SQL.Add(b+' Goods.[Метод покупки], Goods.[Тип товара], Goods.Вес, Goods.[Название лавки] FROM Goods WHERE (((Goods.[Метод покупки])="В магазине"));');
+  Form6.ADOQuery2.SQL.Add('SELECT Sum([Goods].[Стоимость товара]) AS Сумма FROM Goods WHERE (((Goods.[Метод покупки])="В магазине"));');
+  Form6.ADOQuery1.Active:=true;
+  Form6.ADOQuery2.Active:=true;
+  Form6.DBText1.DataField:='Сумма';
+  Form6.ShowModal;
+end;
+end;
+
+procedure TForm5.MemberByName();
+begin
+  Form6.Caption:='Участник по номеру';
+  Form6.ShowModal;
+  Form5.Close;
+end;
+
+procedure TForm5.MemberByTeam();
+begin
+  Form6.Caption:='Участник по команде';
+  Form6.ShowModal;
+  Form5.Close;
+end;
+
+procedure TForm5.EmployeeByNumber();
+begin
+  Form6.Caption:='Сотрудник по номеру';
+  Form6.ShowModal;
+  Form5.Close;
+end;
+
+procedure TForm5.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+Edit1.Text:='';
+ComboBox1.Visible:=false;
+Edit1.Visible:=true;
+end;
+
+procedure TForm5.EmployeeByGroup();
+begin
+  Form6.Caption:='Сотрудник по группе';
+  Form6.ShowModal;
+  Form5.Close;
+end;
+
+end.

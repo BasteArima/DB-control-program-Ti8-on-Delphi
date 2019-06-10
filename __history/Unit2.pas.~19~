@@ -1,0 +1,197 @@
+unit Unit2;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.jpeg,
+  Vcl.ExtCtrls;
+
+type
+  TForm2 = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    Button5: TButton;
+    Button6: TButton;
+    Button7: TButton;
+    Button8: TButton;
+    Image1: TImage;
+    procedure Button8Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button4Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form2: TForm2;
+
+implementation
+uses Unit1, Unit3;
+
+{$R *.dfm}
+
+procedure TForm2.Button1Click(Sender: TObject);
+begin
+  Form3.Caption:='Список всех сотрудников';
+  Form3.ADOQuery1.SQL.Clear;
+  Form3.ADOQuery1.SQL.Add('select * from Employees');
+  Form3.ADOQuery1.Active:=true;
+  Form3.DBEdit1.DataField:='№ Сотрудника';
+  Form3.DBEdit2.DataField:='ФИО';
+  Form3.DBEdit3.DataField:='Дата рождения';
+  Form3.DBEdit4.DataField:='Адресс';
+  Form3.DBEdit5.DataField:='Номер телефона';
+  Form3.DBEdit6.DataField:='Номер группы';
+  Form3.DBEdit4.Width:=360;
+  Form3.DBEdit2.Width:=224;
+  Form3.DBEdit4.Visible:=true;
+  Form3.DBEdit5.Visible:=true;
+  Form3.DBEdit6.Visible:=true;
+
+
+Form3.ShowModal;
+end;
+
+procedure TForm2.Button2Click(Sender: TObject);
+begin
+  Form3.Caption:='Список всех команд';
+  Form3.ADOQuery1.SQL.Clear;
+  Form3.ADOQuery1.SQL.Add('select * from Teams');
+  Form3.ADOQuery1.Active:=true;
+  Form3.DBEdit1.DataField:='Team number';
+  Form3.DBEdit2.DataField:='Team name';
+  Form3.DBEdit3.DataField:='League';
+  Form3.DBEdit4.DataField:='Helper';
+  Form3.DBEdit3.Width:=130;
+  Form3.DBEdit2.Width:=110;
+  Form3.DBEdit4.Width:=25;
+  Form3.DBEdit1.Width:=25;
+  Form3.DBEdit5.Visible:=false;
+  Form3.DBEdit6.Visible:=false;
+  Form3.ShowModal;
+end;
+
+procedure TForm2.Button3Click(Sender: TObject);
+begin
+  Form3.Caption:='Список всех лавок';
+  Form3.ADOQuery1.SQL.Clear;
+  Form3.ADOQuery1.SQL.Add('select * from Shops');
+  Form3.ADOQuery1.Active:=true;
+  Form3.DBEdit1.DataField:='Shop number';
+  Form3.DBEdit2.DataField:='Shop name';
+  Form3.DBEdit4.DataField:='Goods counts';
+  Form3.DBEdit3.DataField:='Sales department';
+  Form3.DBEdit5.DataField:='Delivery department';
+  Form3.DBEdit3.Width:=25;
+  Form3.DBEdit2.Width:=60;
+  Form3.DBEdit4.Width:=25;
+  Form3.DBEdit5.Width:=25;
+  Form3.DBEdit1.Width:=25;
+  Form3.DBEdit4.Visible:=true;
+  Form3.DBEdit5.Visible:=true;
+  Form3.DBEdit6.Visible:=false;
+  Form3.ShowModal;
+end;
+
+procedure TForm2.Button4Click(Sender: TObject);
+begin
+  Form3.Caption:='Список всех рабочих групп';
+  Form3.ADOQuery1.SQL.Clear;
+  Form3.ADOQuery1.SQL.Add('select * from Groups');
+  Form3.ADOQuery1.Active:=true;
+  Form3.DBEdit1.DataField:='Group number';
+  Form3.DBEdit2.DataField:='Group name';
+  Form3.DBEdit3.DataField:='Work zone';
+  Form3.DBEdit3.Width:=100;
+  Form3.DBEdit1.Width:=25;
+  Form3.DBEdit2.Width:=140;
+  Form3.DBEdit4.Visible:=false;
+  Form3.DBEdit5.Visible:=false;
+  Form3.DBEdit6.Visible:=false;
+  Form3.ShowModal;
+end;
+
+procedure TForm2.Button5Click(Sender: TObject);
+begin
+  Form3.Caption:='Список всех участников команд';
+  Form3.ADOQuery1.SQL.Clear;
+  Form3.ADOQuery1.SQL.Add('select * from Members');
+  Form3.ADOQuery1.Active:=true;
+  Form3.DBEdit1.DataField:='Member number';
+  Form3.DBEdit2.DataField:='Member name';
+  Form3.DBEdit3.DataField:='Address';
+  Form3.DBEdit4.DataField:='Team name';
+  Form3.DBEdit5.DataField:='Role';
+  Form3.DBEdit6.DataField:='Date of Birth';
+  Form3.DBEdit7.DataField:='Nickname';
+  Form3.DBEdit8.DataField:='Matches';
+  Form3.DBEdit3.Width:=360;
+  Form3.DBEdit4.Width:=25;
+  Form3.DBEdit5.Width:=80;
+  Form3.DBEdit6.Width:=80;
+  Form3.DBEdit7.Width:=80;
+  Form3.DBEdit8.Width:=25;
+  Form3.DBEdit4.Visible:=true;
+  Form3.DBEdit5.Visible:=true;
+  Form3.DBEdit6.Visible:=true;
+  Form3.DBEdit7.Visible:=true;
+  Form3.DBEdit8.Visible:=true;
+  Form3.ShowModal;
+end;
+
+procedure TForm2.Button6Click(Sender: TObject);
+begin
+Form3.Caption:='Список всех товаров';
+  Form3.ADOQuery1.SQL.Clear;
+  Form3.ADOQuery1.SQL.Add('select * from Goods');
+  Form3.ADOQuery1.Active:=true;
+  Form3.DBEdit1.DataField:='Item number';
+  Form3.DBEdit2.DataField:='Product name';
+  Form3.DBEdit3.DataField:='Price of product';
+  Form3.DBEdit4.DataField:='Purchase method';
+  Form3.DBEdit5.DataField:='Product type';
+  Form3.DBEdit6.DataField:='Weight';
+  Form3.DBEdit7.DataField:='Shop name';
+  Form3.DBEdit3.Width:=35;
+  Form3.DBEdit4.Width:=80;
+  Form3.DBEdit5.Width:=120;
+  Form3.DBEdit6.Width:=45;
+  Form3.DBEdit7.Width:=25;
+  Form3.DBEdit1.Width:=25;
+  Form3.DBEdit2.Width:=100;
+  Form3.DBEdit4.Visible:=true;
+  Form3.DBEdit5.Visible:=true;
+  Form3.DBEdit6.Visible:=true;
+  Form3.DBEdit7.Visible:=false;
+  Form3.DBEdit8.Visible:=false;
+  Form3.ShowModal;
+end;
+
+procedure TForm2.Button7Click(Sender: TObject);
+begin
+Form1.Visible:=true;
+Form2.Close;
+end;
+
+procedure TForm2.Button8Click(Sender: TObject);
+begin
+Application.Terminate;
+end;
+
+procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+Form1.Visible:=true;
+end;
+
+end.

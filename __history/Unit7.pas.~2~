@@ -1,0 +1,45 @@
+unit Unit7;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Data.Win.ADODB, Vcl.StdCtrls;
+
+type
+  TForm7 = class(TForm)
+    ADOConnection1: TADOConnection;
+    DataSource1: TDataSource;
+    ADOQuery1: TADOQuery;
+    DBGrid1: TDBGrid;
+    Button3: TButton;
+    Button2: TButton;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form7: TForm7;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm7.Button1Click(Sender: TObject);
+begin
+Form7.Close;
+end;
+
+procedure TForm7.Button2Click(Sender: TObject);
+begin
+Form5.Close;
+Form7.Close;
+end;
+
+end.
